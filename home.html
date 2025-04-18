@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Data Leakage Detector</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0f172a;
+      color: #f1f5f9;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    nav {
+      width: 220px;
+      background-color: #1e293b;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 10px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+
+    nav button {
+      background: #334155;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    nav button.active {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #b0b0b0;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <button onclick="showSection('description', this)" class="active">Description</button>
+  <button onclick="showSection('upload', this)">Upload File</button>
+  <button onclick="showSection('mydata', this)">My Data</button>
+  <button onclick="showSection('leakage', this)">Leakage Possibility</button>
+  <button onclick="showSection('report', this)">Reports</button>
+</nav>
+
+<div class="content">
+  <h2>Welcome, <span id="userEmail"></span> 👋</h2>
+
+  <div id="description" class="section active">
+    <h3>About the Data Leakage Detector</h3>
+    <p>This tool helps you identify and prevent sensitive data leaks in uploaded files.</p>
+  </div>
+
+  <div id="upload" class="section">
+    <h3>Upload File</h3>
+    <input type="file" />
+    <button>Detect Leakage</button>
+  </div>
+
+  <div id="mydata" class="section">
+    <h3>My Uploaded Files</h3>
+    <p>No data found yet.</p>
+  </div>
+
+  <div id="leakage" class="section">
+    <h3>Leakage Possibility</h3>
+    <p>Coming soon...</p>
+  </div>
+
+  <div id="report" class="section">
+    <h3>Reports</h3>
+    <p>Check back later for detailed reports.</p>
+  </div>
+
+  <div class="footer">
+    <p>Contact: <a href="mailto:mukeshshanmugam3@gmail.com" style="color:#38bdf8;">mukeshshanmugam3@gmail.com</a> | 6374681191</p>
+  </div>
+</div>
+
+<script>
+  const email = localStorage.getItem("loggedInUser");
+  if (!email) {
+    window.location.href = "login.html"; // redirect if not logged in
+  } else {
+    document.getElementById("userEmail").innerText = email.split('@')[0];
+  }
+
+  function showSection(id, btn) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  }
+</script>
+
+</body>
+</html>
